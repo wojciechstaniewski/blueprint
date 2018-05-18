@@ -1,6 +1,7 @@
 package co.netguru.blueprint.authenticator
 
 import android.accounts.*
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,12 +10,20 @@ import android.util.Log
 import co.netguru.blueprint.BuildConfig
 import co.netguru.blueprint.R
 import co.netguru.blueprint.login.view.LoginActivity
+import co.netguru.blueprint.services.authentication.ApiAuth
+import co.netguru.blueprint.services.authentication.AuthenticationManager
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 
 class AccountAuthenticator(var context: Context) : AbstractAccountAuthenticator(context) {
 
-/*    @Inject
-    lateinit var authenticationManager: AuthenticationManager*/
+    @Inject
+    lateinit var authenticationManager: AuthenticationManager
+
+    @Inject
+    lateinit var accountManager: AccountManager
 
     private val TAG: String = AccountAuthenticator::class.java.simpleName
 
@@ -36,29 +45,27 @@ class AccountAuthenticator(var context: Context) : AbstractAccountAuthenticator(
         return null
     }
 
+    @SuppressLint("CheckResult")
     @Throws(Exception::class)
     override fun getAuthToken(response: AccountAuthenticatorResponse?, account: Account?, authTokenType: String?, bundle: Bundle?): Bundle {
         Log.i(TAG, "getAuthToken")
-        val am = AccountManager.get(context)
 
-        var authToken = am.peekAuthToken(account, authTokenType)
-        //var auth: Auth? = null
+        var authToken = accountManager.peekAuthToken(account, authTokenType)
+        var auth: ApiAuth? = null
         // Lets give another try to authenticate the user
 
         if (authToken != null && TextUtils.isEmpty(authToken)) {
 
-            //todo service to get authentication
-
-            /*         authenticationManager.authenticateClient(account!!.name, am.getPassword(account))
-                             .subscribeOn(Schedulers.io())
-                             .observeOn(AndroidSchedulers.mainThread())
-                             .subscribe({ result ->
-                                 auth = result
-                                 authToken = result.token
-                             }, { e ->
-                                 //todo handle exception
-                                 throw (NetworkErrorException(e))
-                             })*/
+            authenticationManager.authenticateClient(account!!.name, accountManager.getPassword(account))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ result ->
+                        auth = result
+                        authToken = result.accessToken
+                    }, { e ->
+                        //todo handle exception
+                        throw (NetworkErrorException(e))
+                    })
         }
 
 
@@ -68,7 +75,7 @@ class AccountAuthenticator(var context: Context) : AbstractAccountAuthenticator(
             result.putString(AccountManager.KEY_ACCOUNT_NAME, account?.name)
             result.putString(AccountManager.KEY_ACCOUNT_TYPE, account?.type)
             result.putString(AccountManager.KEY_AUTHTOKEN, authToken)
-            //result.putParcelable(§Activity.AUTH, auth)
+            result.putParcelable(context.getString(R.string.auth), auth)
             return result
         }
 

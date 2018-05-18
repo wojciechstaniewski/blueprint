@@ -12,12 +12,12 @@ import co.netguru.blueprint.authenticator.AccountAuthenticator
 import co.netguru.blueprint.databinding.SplashScreenFragmentBinding
 import co.netguru.blueprint.main.view.MainActivity
 import co.netguru.blueprint.main.viewmodel.MainViewModel
-import co.netguru.blueprintlibrary.common.Constants
 import co.netguru.blueprintlibrary.common.GetAuthTokenCallback
 import co.netguru.blueprintlibrary.common.view.BaseFragment
 import com.hannesdorfmann.fragmentargs.annotation.Arg
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 @FragmentWithArgs
 class SplashScreenFragment : BaseFragment<MainViewModel, SplashScreenFragmentBinding>(R.layout.splash_screen_fragment) {
@@ -27,6 +27,9 @@ class SplashScreenFragment : BaseFragment<MainViewModel, SplashScreenFragmentBin
 
     @Arg
     lateinit var title: String
+
+    @Inject
+    lateinit var accountManager: AccountManager
 
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
@@ -40,9 +43,6 @@ class SplashScreenFragment : BaseFragment<MainViewModel, SplashScreenFragmentBin
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val accountManager = AccountManager.get(context)
-
-        Thread.sleep(Constants.ONE_SECOND)
 
         accountManager.getAuthTokenByFeatures(AccountAuthenticator.getAccountType(),
                 AccountAuthenticator.getAuthTokenType(),
