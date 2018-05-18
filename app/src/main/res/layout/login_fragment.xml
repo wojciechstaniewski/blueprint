@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="layoutUtils"
+            type="co.netguru.blueprintlibrary.common.utils.DisplayUtils" />
+
+        <variable
+            name="viewModel"
+            type="co.netguru.blueprint.login.viewmodel.LoginRegisterViewModel" />
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/loginContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/logoView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_netguru_logo_full"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputEmail"
+                android:layout_width="@dimen/input_width"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:textColorHint="@color/black"
+                app:hintTextAppearance="@style/AppHintTextAppearanceStyle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logoView">
+
+                <EditText
+                    android:id="@+id/inputEmailText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@{layoutUtils.setDrawableWithTint(@drawable/ic_person,@color/logo_active)}"
+                    android:drawablePadding="@dimen/small_margin"
+                    android:hint="@string/e_mail"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.loginUserName}"
+                    android:textColor="@color/black" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputPassword"
+                android:layout_width="@dimen/input_width"
+                android:layout_height="@dimen/input_height"
+                android:textColorHint="@color/black"
+                app:hintTextAppearance="@style/AppHintTextAppearanceStyle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputEmail"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/backgroundColor">
+
+                <EditText
+                    android:id="@+id/inputPasswordText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@{layoutUtils.setDrawableWithTint(@drawable/ic_password,@color/logo_active)}"
+                    android:drawablePadding="@dimen/small_margin"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.loginPassword}"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/appCompatButton3"
+                style="@style/Borderless_Button"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="56dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{() -> viewModel.forgotPassword()}"
+                android:text="@string/forgot_password_question"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/small_text_size"
+                app:layout_constraintEnd_toEndOf="@+id/inputPassword"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/inputPassword"
+                app:layout_constraintTop_toTopOf="@+id/inputPassword" />
+
+            <RelativeLayout
+                android:id="@+id/loginButtonContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputPassword">
+
+                <co.netguru.blueprintlibrary.common.customViews.CircularProgressButton
+                    android:id="@+id/login"
+                    android:layout_width="@dimen/input_width"
+                    android:layout_height="@dimen/button_height"
+                    android:background="@drawable/shape_blue"
+                    android:enabled="false"
+                    android:onClick="@{() -> viewModel.startLogin()}"
+                    android:text="@string/login"
+                    android:textColor="@color/white"
+                    android:transitionName="transition"
+                    app:animationBackground="@drawable/rounded_shape_white"
+                    app:animationTextColor="@color/colorPrimary"
+                    app:finalCornerAngle="@dimen/large_corner_angle"
+                    app:initialCornerAngle="@dimen/small_corner_angle"
+                    app:spinning_bar_color="@color/colorPrimary"
+                    app:spinning_bar_width="@dimen/spinning_bar_width" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="80dp"
+                android:text="@string/dont_have_an_account"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginButtonContainer"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/sign_up"
+                style="@style/Borderless_Button"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{() -> viewModel.navigateToRegister()}"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/sign_up"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

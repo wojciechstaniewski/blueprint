@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="layoutUtils"
+            type="co.netguru.blueprintlibrary.common.utils.DisplayUtils" />
+
+        <variable
+            name="viewModel"
+            type="co.netguru.blueprint.login.viewmodel.LoginRegisterViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:scaleType="fitXY"
+            android:src="@{layoutUtils.setDrawableWithTint(@drawable/ic_check,@color/logo_active)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/successText"
+            android:layout_width="369dp"
+            android:layout_height="96dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="92dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{viewModel.successText}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/large_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/sign_up"
+            style="@style/Borderless_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="80dp"
+            android:onClick="@{(v) -> viewModel.navigateToLogin()}"
+            android:text="@string/log_in"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/successText"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

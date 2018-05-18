@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#22BE40</color>
+    <color name="colorPrimaryDark">#036816</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="content_font_normal">#000000</color>
+    <color name="notificationError">#EF2551</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="confirmation_active">#65C978</color>
+    <color name="ic_attach_fill_color">#9E9E9E</color>
+</resources>

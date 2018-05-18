@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Changes the severity of these to "error" for getting to a warning-free build -->
+    <issue id="UnusedResources" severity="ignore">
+        <!-- Ignore what google services generates -->
+        <ignore path="**/google-services/**" />
+        <!-- Ignore generated resValues -->
+        <ignore path="build.gradle" />
+        <!-- Not used by project, but used by AS editor -->
+        <ignore path="src/main/res/layout/preview_theme_editor.xml" />
+        <ignore path="src/main/res/values/strings_preview.xml" />
+    </issue>
+    <issue id="TrustAllX509TrustManager" severity="ignore">
+
+    </issue>
+</lint>

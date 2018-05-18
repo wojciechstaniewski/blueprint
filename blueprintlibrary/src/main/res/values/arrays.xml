@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="mine_file_attachment_icons">
+        <item>@drawable/ic_file_document</item>
+        <item>@drawable/ic_file_pdf</item>
+        <item>@drawable/ic_file_image</item>
+    </array>
+    <array name="incoming_file_attachment_icons">
+        <item>@drawable/ic_incoming_file_document</item>
+        <item>@drawable/ic_incoming_file_pdf</item>
+        <item>@drawable/ic_incoming_file_image</item>
+    </array>
+</resources>

@@ -1,0 +1,111 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion('27.0.3')
+
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    lintOptions {
+        lintConfig file("lint.xml")
+        abortOnError true
+        warningsAsErrors true
+        checkReleaseBuilds true
+        xmlReport true
+        htmlReport true
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+    dexOptions {
+        preDexLibraries = true
+        javaMaxHeapSize "4g"
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'android.arch.lifecycle:runtime:1.1.1'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'android.arch.lifecycle:common-java8:1.1.1'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+    testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
+    implementation 'android.arch.paging:runtime:1.0.0'
+    implementation 'android.arch.persistence.room:runtime:1.0.0'
+    kapt 'android.arch.persistence.room:compiler:1.0.0'
+    testImplementation 'android.arch.persistence.room:testing:1.0.0'
+    implementation 'android.arch.persistence.room:rxjava2:1.0.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.google.dagger:dagger-android:2.15'
+    implementation 'com.google.dagger:dagger-android-support:2.15'
+    kapt 'com.google.dagger:dagger-android-processor:2.15'
+    kapt 'com.google.dagger:dagger-compiler:2.15'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:support-v13:27.1.1'
+    implementation 'com.android.support:support-annotations:27.1.1'
+    implementation 'com.android.support:gridlayout-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:support-fragment:27.1.1'
+    implementation 'com.android.support:preference-v7:27.1.1'
+    implementation 'com.android.support:preference-v14:27.1.1'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.hannesdorfmann.fragmentargs:annotation:3.0.2'
+    kapt 'com.hannesdorfmann.fragmentargs:processor:3.0.2'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    implementation 'com.google.android.gms:play-services-drive:15.0.1'
+    implementation 'com.google.maps:google-maps-services:0.1.20'
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'net.hockeyapp.android:HockeySDK:5.0.4'
+    implementation 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.2.41'
+    kapt 'androidx.databinding:databinding-compiler:3.2.0-alpha14'
+}
+repositories {
+    mavenCentral()
+}
