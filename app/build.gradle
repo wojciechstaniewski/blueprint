@@ -14,7 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        buildConfigField 'String', 'SERVER', '"http://petstore.swagger.io/v2/"'
+        buildConfigField 'String', 'SERVER', '"http://petstore.swagger.io/"'
         buildConfigField 'boolean', 'ENABLE_LEAK_CANARY', 'true'
         buildConfigField 'String', 'APP_ACCOUNT_NAME', '"blueprint"'
         buildConfigField 'String', 'AUTH_TOKEN_TYPE', '"' + applicationId + '.token"'

@@ -13,7 +13,7 @@ enum class Status(val value: String) {
 
     PENDING("pending"),
 
-    SOLD("sold ");
+    SOLD("sold");
 
     override fun toString(): String {
         return value

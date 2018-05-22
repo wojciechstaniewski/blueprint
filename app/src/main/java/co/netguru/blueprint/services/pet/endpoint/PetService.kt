@@ -10,33 +10,33 @@ import java.io.File
 interface PetService {
 
     @Headers("Content-Type:application/json")
-    @POST("/pet")
+    @POST("/v2/pet")
     fun addPet(@retrofit2.http.Body pet: Pet): Single<Pet>
 
     @Headers("Content-Type:application/json")
-    @PUT("/pet")
+    @PUT("/v2/pet")
     fun updatePet(@retrofit2.http.Body pet: Pet): Single<Pet>
 
     @Headers("Content-Type:application/json")
-    @GET("/pet/findByStatus")
-    fun findByStatus(@retrofit2.http.Body status: Status): Single<List<Pet>>
+    @GET("/v2/pet/findByStatus")
+    fun findByStatus(@retrofit2.http.Query("status") status: Status): Single<List<Pet>>
 
     @Headers("Content-Type:application/json")
-    @GET("/pet/{id}")
+    @GET("/v2/pet/{id}")
     fun getPet(@retrofit2.http.Path("id") id: Long?): Single<Pet>
 
     @Headers("Content-Type:application/json")
-    @POST("/pet/{id}")
+    @POST("/v2/pet/{id}")
     fun updatePet(@retrofit2.http.Path("id") id: Long?,
                   name: String,
                   status: String): Single<Response<Unit>>
 
     @Headers("Content-Type:application/json")
-    @DELETE("/pet/{id}")
+    @DELETE("/v2/pet/{id}")
     fun deletePet(@retrofit2.http.Path("id") id: Long?): Single<Response<Unit>>
 
     @Headers("Content-Type:application/json")
-    @POST("/pet/{id}/uploadImage")
+    @POST("/v2/pet/{id}/uploadImage")
     fun uploadImage(@retrofit2.http.Header("api_key") api_key: String,
                     @retrofit2.http.Path("id") id: Long?,
                     additionalMetadata: String,

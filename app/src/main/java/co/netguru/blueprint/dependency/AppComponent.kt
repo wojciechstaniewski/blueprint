@@ -19,6 +19,9 @@ import javax.inject.Singleton
         AppModule::class,
         NetworkModule::class,
         AuthenticationModule::class,
+        PetModule::class,
+        StoreModule::class,
+        UserModule::class,
         ActivityBuilder::class))
 interface AppComponent {
 

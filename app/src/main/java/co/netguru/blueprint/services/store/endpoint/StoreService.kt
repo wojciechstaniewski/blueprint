@@ -11,18 +11,18 @@ import retrofit2.http.POST
 interface StoreService {
 
     @Headers("Content-Type:application/json")
-    @GET("/store/inventory")
+    @GET("/v2/store/inventory")
     fun petInventoriesByStatus(): Single<Map<String, Int>>
 
     @Headers("Content-Type:application/json")
-    @POST("/store/order")
+    @POST("/v2/store/order")
     fun placeAnOrderForPet(@retrofit2.http.Body pet: Pet): Single<Pet>
 
     @Headers("Content-Type:application/json")
-    @GET("/store/order/{orderId}")
+    @GET("/v2/store/order/{orderId}")
     fun findPurchaseOrderById(@retrofit2.http.Path("orderId") id: Long?): Single<Pet>
 
     @Headers("Content-Type:application/json")
-    @DELETE("/store/order/{orderId}")
+    @DELETE("/v2/store/order/{orderId}")
     fun deletePurchaseOrderById(@retrofit2.http.Path("orderId") id: Long?): Single<Response<Void>>
 }

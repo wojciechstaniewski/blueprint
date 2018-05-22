@@ -48,6 +48,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/dependency/PetModule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/dependency/StoreModule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/dependency/UserModule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/login/view/LoginFragment.kt">
           <value>
             <set />
@@ -119,6 +134,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/services/authentication/AuthenticationManagerImpl.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/services/pet/domain/Status.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/services/pet/endpoint/PetService.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/services/store/endpoint/StoreService.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/services/user/endpoint/UserService.kt">
           <value>
             <set />
           </value>
