@@ -7,17 +7,20 @@ import android.widget.Toast
 import co.netguru.blueprint.AppNavigation
 import co.netguru.blueprint.R
 import co.netguru.blueprint.login.view.SplashScreenFragmentBuilder
-import co.netguru.blueprint.login.view.WelcomeScreenFragmentBuilder
 import co.netguru.blueprint.main.view.MainActivity
+import co.netguru.blueprint.main.view.PetsScreenFragmentBuilder
+import co.netguru.blueprint.main.view.WelcomeScreenFragmentBuilder
+import co.netguru.blueprintlibrary.common.utils.SharedPrefsUtils
 import javax.inject.Inject
 
-class MainNavigationHelper @Inject constructor(private var mainActivity: MainActivity) {
+class MainNavigationHelper @Inject constructor(private var mainActivity: MainActivity, private val sharedPrefsUtils: SharedPrefsUtils) {
 
 
     fun navigate(appNavigation: AppNavigation) {
         when (appNavigation) {
             AppNavigation.SPLASH_SCREEN -> navigateToFragment(mainActivity = mainActivity, fragment = SplashScreenFragmentBuilder.newSplashScreenFragment(mainActivity.getString(appNavigation.title)), tag = mainActivity.getString(R.string.splash_screen))
             AppNavigation.WELCOME_SCREEN -> navigateToFragment(mainActivity = mainActivity, fragment = WelcomeScreenFragmentBuilder.newWelcomeScreenFragment(mainActivity.getString(appNavigation.title)), tag = mainActivity.getString(R.string.welcome_screen))
+            AppNavigation.PETS -> navigateToFragment(mainActivity = mainActivity, fragment = PetsScreenFragmentBuilder.newPetsScreenFragment(mainActivity.getString(appNavigation.title)), tag = mainActivity.getString(R.string.pets_screen))
             AppNavigation.LOGOUT -> mainActivity.logout()
             else -> {
                 Log.e("LoginNavigationHelper", "No navigation found !!!")
@@ -41,6 +44,15 @@ class MainNavigationHelper @Inject constructor(private var mainActivity: MainAct
     fun removeAllFragments() {
         for (fragment in mainActivity.supportFragmentManager.fragments) {
             mainActivity.supportFragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
+        }
+    }
+
+    fun navigateNextScreenForActiveUser() {
+        if (sharedPrefsUtils.isFirstRunning()) {
+            sharedPrefsUtils.setFirstRunning(false)
+            navigate(AppNavigation.WELCOME_SCREEN)
+        } else {
+            navigate(AppNavigation.PETS)
         }
     }
 }

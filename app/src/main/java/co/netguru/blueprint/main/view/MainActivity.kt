@@ -58,7 +58,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
 
     private fun handleAccountCreatedEventSuccess():Disposable{
         return accountCreatedEvent.getSuccessStream().subscribe({
-            mainNavigationHelper.navigate(AppNavigation.WELCOME_SCREEN)
+            mainNavigationHelper.navigateNextScreenForActiveUser()
         })
     }
 

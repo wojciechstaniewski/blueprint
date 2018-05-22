@@ -8,6 +8,7 @@ enum class AppNavigation(val menuId: Int, val title: Int) {
     MAIN(app_name, app_name),
     SPLASH_SCREEN(splash_screen, splash_screen),
     WELCOME_SCREEN(welcome_screen, welcome_screen),
+    PETS(pets_screen,pets_screen),
     REGISTER(register, register),
     FORGOT_PASSWORD(forgot_password, forgot_password),
     BACK(back, back),

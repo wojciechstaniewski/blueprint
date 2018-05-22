@@ -1,9 +1,11 @@
 package co.netguru.blueprint.main.viewmodel
 
 import android.arch.lifecycle.ViewModel
+import android.os.Handler
 import android.os.Parcelable
 import co.netguru.blueprint.main.navigation.MainNavigationHelper
 import co.netguru.blueprintlibrary.Repository
+import co.netguru.blueprintlibrary.common.Constants
 import co.netguru.blueprintlibrary.common.events.ActionEvent
 import javax.inject.Inject
 
@@ -23,6 +25,17 @@ class MainViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
+    }
+
+    fun handleStartClick() {
+        nextEvent.onStartProgress()
+    }
+
+    fun waitUntilAnimationFinish() {
+        val runnable = {
+            nextEvent.onSuccess(true)
+        }
+        Handler().postDelayed(runnable, Constants.ONE_SECOND)
     }
 
 

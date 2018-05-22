@@ -26,6 +26,7 @@
     <string name="splash_screen">Splash Screen</string>
     <string name="nav_logout">Logout</string>
     <string name="welcome_screen">Welcome screen</string>
+    <string name="pets_screen">Pets</string>
 
     <string name="register">Register</string>
     <string name="forgot_password">Forgot password</string>

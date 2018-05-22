@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_text_row_1">"It's nice to see you here!"</string>
+    <string name="welcome_text_row_2">This is demo sample project. User can authorize and browse pet store.</string>
+    <string name="welcome_text_row_3">Source code in kotlin include : okhttp 3.0,retrofit 2, databinding, architecture components (viewmodels), rxkotlin, rxandroid, rxjava2,rxrelay2,Picasso,fragmentargs</string>
+    <string name="let_is_start">"Let's start"</string>
+    <string name="hello">Hello</string>
+</resources>
