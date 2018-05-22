@@ -8,11 +8,11 @@ import android.view.View
 import co.netguru.blueprint.BR
 import co.netguru.blueprint.BuildConfig
 import co.netguru.blueprint.R
-import co.netguru.blueprint.authenticator.AccountAuthenticator
 import co.netguru.blueprint.databinding.SplashScreenFragmentBinding
 import co.netguru.blueprint.main.view.MainActivity
 import co.netguru.blueprint.main.viewmodel.MainViewModel
 import co.netguru.blueprintlibrary.common.GetAuthTokenCallback
+import co.netguru.blueprintlibrary.common.utils.AccountUtils
 import co.netguru.blueprintlibrary.common.view.BaseFragment
 import com.hannesdorfmann.fragmentargs.annotation.Arg
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
@@ -31,6 +31,9 @@ class SplashScreenFragment : BaseFragment<MainViewModel, SplashScreenFragmentBin
     @Inject
     lateinit var accountManager: AccountManager
 
+    @Inject
+    lateinit var accountUtils: AccountUtils
+
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -44,13 +47,13 @@ class SplashScreenFragment : BaseFragment<MainViewModel, SplashScreenFragmentBin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        accountManager.getAuthTokenByFeatures(AccountAuthenticator.getAccountType(),
-                AccountAuthenticator.getAuthTokenType(),
+        accountManager.getAuthTokenByFeatures(BuildConfig.APPLICATION_ID,
+                BuildConfig.AUTH_TOKEN_TYPE,
                 null,
                 activity as MainActivity,
                 null,
                 null,
-                GetAuthTokenCallback(activity as MainActivity, BuildConfig.APP_ACCOUNT_NAME, BuildConfig.AUTH_TOKEN_TYPE), null)
+                GetAuthTokenCallback(activity as MainActivity, BuildConfig.APPLICATION_ID, BuildConfig.AUTH_TOKEN_TYPE, accountUtils, accountManager), null)
     }
 
     override fun afterTexChanged(textInputLayout: TextInputLayout) {

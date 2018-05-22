@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="co.netguru.blueprint.login.viewmodel.LoginRegisterViewModel" />
+            type="co.netguru.blueprint.main.viewmodel.MainViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import co.netguru.blueprint.BuildConfig
 import co.netguru.blueprint.R
 import co.netguru.blueprint.login.view.LoginActivity
 import co.netguru.blueprint.services.authentication.ApiAuth
@@ -126,19 +125,5 @@ class AccountAuthenticator(var context: Context) : AbstractAccountAuthenticator(
         val reply = Bundle()
         reply.putParcelable(AccountManager.KEY_INTENT, intent)
         return reply
-    }
-
-    companion object {
-        fun getAccountType(): String {
-            return BuildConfig.APPLICATION_ID
-        }
-
-        fun getAccountName(): String {
-            return BuildConfig.APP_ACCOUNT_NAME
-        }
-
-        fun getAuthTokenType(): String {
-            return BuildConfig.AUTH_TOKEN_TYPE
-        }
     }
 }

@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import android.util.Log
 import co.netguru.blueprint.AppNavigation
+import co.netguru.blueprint.BuildConfig
 import co.netguru.blueprint.authenticator.AccountAuthenticator
 import co.netguru.blueprint.authenticator.AuthenticationResult
 import co.netguru.blueprint.login.navigation.LoginNavigationHelper
@@ -32,9 +33,6 @@ class LoginRegisterViewModel : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     @Inject
-    lateinit var userService: UserService
-
-    @Inject
     lateinit var loginNavigationHelper: LoginNavigationHelper
 
     @Inject
@@ -61,7 +59,7 @@ class LoginRegisterViewModel : ViewModel() {
                     } else {
                         loginEvent.onSuccess(AuthenticationResult(
                                 loginUserName.get()!!.trim(),
-                                AccountAuthenticator.getAccountType(),
+                                BuildConfig.APPLICATION_ID,
                                 result.accessToken,
                                 loginPassword.get()!!.trim(),
                                 result.expiresIn?.toString()))

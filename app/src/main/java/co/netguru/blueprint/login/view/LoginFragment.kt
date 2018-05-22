@@ -10,11 +10,14 @@ import android.os.Handler
 import android.support.design.widget.TextInputLayout
 import android.view.View
 import co.netguru.blueprint.BR
+import co.netguru.blueprint.BuildConfig
 import co.netguru.blueprint.R
-import co.netguru.blueprint.authenticator.AccountAuthenticator
+import co.netguru.blueprint.authenticator.AuthenticationResult
 import co.netguru.blueprint.databinding.LoginFragmentBinding
 import co.netguru.blueprint.login.viewmodel.LoginRegisterViewModel
+import co.netguru.blueprintlibrary.common.Constants
 import co.netguru.blueprintlibrary.common.customViews.CircularProgressButton
+import co.netguru.blueprintlibrary.common.utils.AccountUtils
 import co.netguru.blueprintlibrary.common.utils.DisplayUtils
 import co.netguru.blueprintlibrary.common.view.BaseFragment
 import com.hannesdorfmann.fragmentargs.annotation.Arg
@@ -28,6 +31,9 @@ class LoginFragment : BaseFragment<LoginRegisterViewModel, LoginFragmentBinding>
 
     @Inject
     lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var accountUtils: AccountUtils
 
     @Arg
     lateinit var title: String
@@ -86,40 +92,34 @@ class LoginFragment : BaseFragment<LoginRegisterViewModel, LoginFragmentBinding>
         }))
     }
 
-    private fun finishLogin(intent: Intent) {
+    private fun finishLogin(authenticationResult: AuthenticationResult) {
 
-        val accountName = intent.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
-        val accountPassword = intent.getStringExtra(getString(R.string.password))
-        val account = Account(accountName, intent.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE))
-        val authToken = intent.getStringExtra(AccountManager.KEY_AUTHTOKEN)
+        val accountPassword = authenticationResult.password
+        val account = Account(authenticationResult.accountName, authenticationResult.accountType)
 
         if (activity!!.intent.getBooleanExtra(getString(R.string.isAddingNewAccount), false)) {
             // Creating the account on the device and setting the auth token we got
             // (Not setting the auth token will cause another call to the server to authenticate the user)
             accountManager.addAccountExplicitly(account, accountPassword, null)
-            accountManager.setAuthToken(account, AccountAuthenticator.getAuthTokenType(), authToken)
+            accountManager.setAuthToken(account, BuildConfig.AUTH_TOKEN_TYPE, authenticationResult.authToken)
         } else {
             accountManager.setPassword(account, accountPassword)
         }
-        setUserData(account, intent)
+
+        val intent = Intent()
+        intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, authenticationResult.accountName)
+        intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, authenticationResult.accountType)
+        intent.putExtra(AccountManager.KEY_AUTHTOKEN, authenticationResult.authToken)
+        intent.putExtra(getString(R.string.password), authenticationResult.password)
+
+
+        accountUtils.setUserData(account, Constants.EXPIRE_IN_TIMESTAMP,
+                authenticationResult.expireIn)
+
         (activity as LoginActivity).setAccountAuthenticatorResult(intent.extras)
         (activity as LoginActivity).setResult(AccountAuthenticatorActivity.RESULT_OK, intent)
         (activity as LoginActivity).finish()
     }
-
-    private fun setUserData(account: Account, intent: Intent) {
-        /*      if (BuildConfig.ENABLE_DEMO) {
-                  AccountUtils.setUserData(accountManager, account, LoginActivity.STATUS,
-                          intent.getStringExtra(LoginActivity.STATUS))
-              } else {
-                  //prod variant
-
-                  AccountUtils.setUserData(accountManager, account, Constants.EXPIRE_IN_TIMESTAMP,
-                          intent.getIntExtra(Constants.EXPIRE_IN_TIMESTAMP,
-                                  Constants.DEFAULT_EXPIRE_IN_TIME).toString())
-              }*/
-    }
-
 
     override fun afterTexChanged(textInputLayout: TextInputLayout) {
     }

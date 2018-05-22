@@ -2,15 +2,14 @@ package co.netguru.blueprint.dependency
 
 import android.app.Application
 import co.netguru.blueprint.App
-import co.netguru.blueprintlibrary.dependency.AuthTokenType
 import co.netguru.blueprintlibrary.dependency.AccountType
+import co.netguru.blueprintlibrary.dependency.AuthTokenType
 import co.netguru.blueprintlibrary.dependency.BaseUrl
 import co.netguru.blueprintlibrary.dependency.modules.AppModule
 import co.netguru.blueprintlibrary.dependency.modules.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
-import okhttp3.HttpUrl
 import javax.inject.Singleton
 
 
@@ -19,6 +18,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         AppModule::class,
         NetworkModule::class,
+        AuthenticationModule::class,
         ActivityBuilder::class))
 interface AppComponent {
 

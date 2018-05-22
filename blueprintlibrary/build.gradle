@@ -104,7 +104,7 @@ dependencies {
     implementation 'net.hockeyapp.android:HockeySDK:5.0.4'
     implementation 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.2.41'
-    kapt 'androidx.databinding:databinding-compiler:3.2.0-alpha14'
+    kapt 'androidx.databinding:databinding-compiler:3.2.0-alpha15'
 }
 repositories {
     mavenCentral()

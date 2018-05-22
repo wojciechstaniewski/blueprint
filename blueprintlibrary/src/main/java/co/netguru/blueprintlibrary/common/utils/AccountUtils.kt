@@ -57,7 +57,7 @@ class AccountUtils @Inject constructor(private val accountManager: AccountManage
         accountManager.getAuthTokenByFeatures(accountType, authTokenType, null,
                 errorHandlingActivity, null, null,
                 GetAuthTokenCallback(activity = errorHandlingActivity,
-                        accountType = accountType,authTokenType = authTokenType), null)
+                        accountType = accountType, authTokenType = authTokenType, accountUtils = this, accountManager = accountManager), null)
     }
 
 }

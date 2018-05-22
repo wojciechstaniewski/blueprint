@@ -1,15 +1,30 @@
 package co.netguru.blueprint.services.authentication
 
+import co.netguru.blueprintlibrary.common.utils.HttpStatus
 import io.reactivex.Single
+import okhttp3.MediaType
+import okhttp3.ResponseBody
+import retrofit2.HttpException
+import retrofit2.Response
+import java.util.*
+import javax.inject.Inject
 
-class AuthenticationManagerImpl : AuthenticationManager {
+class AuthenticationManagerImpl @Inject constructor(): AuthenticationManager {
 
-
+    private var credentialsRepo: Map<String, String>? = null
 
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
+
+    init {
+        val credentials = HashMap<String, String>()
+        credentials["test1@netguru.pl"] = "Andr123!"
+        credentials["test2@netguru.pl"] = "Andr123!"
+        credentials["test3@netguru.pl"] = "Andr123!"
+        credentialsRepo = Collections.unmodifiableMap(credentials)
+    }
 
     override fun authenticateClient(userName: String, password: String): Single<ApiAuth> {
 
@@ -21,6 +36,18 @@ class AuthenticationManagerImpl : AuthenticationManager {
         val idToken = "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJIOE9MYUdmZWVmWlgtbW1zekk2QzhsTXRRbW5vNEg1VVA4MkE0UFZiR3pnIn0.eyJqdGkiOiI1OTM5Mjk5My0xYzRmLTQyMWQtYWUxMi05ZmNlMTQ5MDIzYzIiLCJleHAiOjE1MjY2NTU1MDUsIm5iZiI6MCwiaWF0IjoxNTI2NjM3NTA1LCJpc3MiOiJodHRwczovL2hlbGxvYXN0cmEub253ZWxvLmNvbS9hdXRoL3JlYWxtcy9jYW5kaWRhdGVzIiwiYXVkIjoiaGVsbG9hc3RyYS1jYW5kaWRhdGVzIiwic3ViIjoiZmVlYTllYTctNjI5YS00MDQyLTlmMTktNDNlODY2Y2MxMTEzIiwidHlwIjoiSUQiLCJhenAiOiJoZWxsb2FzdHJhLWNhbmRpZGF0ZXMiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiI3NDc5OTQ5Yy01ZGU1LTQ0NDctYjc3ZC0wOThlZmU3NTc4OTMiLCJhY3IiOiIxIiwibmFtZSI6IkpvaG4gS293YWxza3kiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ0ZXN0MSIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJLb3dhbHNreSJ9.Cf9F35uvQ1ElcUb9AW1C21uZ09V8WkG2wYtKuNt6sM97Kf6bgxx9JJN5N_W1_rgpdSktqOmjYfQfAdB19Dz0e8GCw-OvdieqKEA483ASD-rk6BHnAe0xsXDoQnlVAu3PBwPH4_Wgk54xI_YJty4bO28SbZaPb8NNPNJqQtTYym3fT0CVfGmBhxRK1EG5vPpfYhxWOHdyXCRd6JijfQEe3sb0iqDYrwNV2NUCzz-q3yCg6tyu9_A5VxAg70WW_KpaZDoJEaxxaXCf-7P5PLEnVaI6c3vJDfse081JrgsBeNm6qcWE5-NlgF_Rikm3s7WXbLWRsVzjar4cwLqkwW6JmA"
         val notBeforePolicy = "0"
         val sessionState = "7479949c-5de5-4447-b77d-098efe757893"
-        return Single.just(ApiAuth(accessToken, expiresIn, refreshExpires, refreshToken, tokenType, idToken, notBeforePolicy, sessionState))
+
+        if (credentialsRepo!!.contains(userName)) {
+            if (password == credentialsRepo?.get(userName)) {
+                return Single.just(ApiAuth(accessToken, expiresIn, refreshExpires, refreshToken, tokenType, idToken, notBeforePolicy, sessionState))
+            }
+        }
+
+        val responseBody: ResponseBody = ResponseBody.create(MediaType.parse("text/plain"), "{\n" +
+                "    \"error\": \"invalid_grant\",\n" +
+                "    \"error_description\": \"Invalid user credentials\"\n" +
+                "}")
+        val response: Response<String> = Response.error(HttpStatus.UNAUTHORIZED.value(), responseBody)
+        return Single.error(HttpException(response))
     }
 }

@@ -34,7 +34,7 @@ abstract class BaseActivity<T : ViewModel, S : ViewDataBinding> constructor(priv
     lateinit var baseBinding: S
     private lateinit var notificationManager: NotificationManager
 
-    private val compositeDisposable = CompositeDisposable()
+    val compositeDisposable = CompositeDisposable()
 
     private lateinit var connectivityBroadCastReceiver: ConnectivityBroadCastReceiver
 

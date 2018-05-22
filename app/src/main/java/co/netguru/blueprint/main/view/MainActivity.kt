@@ -12,6 +12,7 @@ import co.netguru.blueprint.main.navigation.MainNavigationHelper
 import co.netguru.blueprint.main.viewmodel.MainViewModel
 import co.netguru.blueprintlibrary.common.utils.HttpStatus
 import co.netguru.blueprintlibrary.common.view.BaseActivity
+import io.reactivex.disposables.Disposable
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import retrofit2.HttpException
@@ -51,17 +52,22 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
         if (savedInstanceState == null) {
             mainNavigationHelper.navigate(AppNavigation.SPLASH_SCREEN)
         }
-
-        handleLogoutEvent()
+        compositeDisposable.add(handleAccountCreatedEventSuccess())
+        compositeDisposable.add(handleLogoutEvent())
     }
 
+    private fun handleAccountCreatedEventSuccess():Disposable{
+        return accountCreatedEvent.getSuccessStream().subscribe({
+            mainNavigationHelper.navigate(AppNavigation.WELCOME_SCREEN)
+        })
+    }
 
-    private fun handleLogoutEvent() {
-/*        repository.logoutEvent.getErrorStream().subscribe({
+    private fun handleLogoutEvent() :Disposable {
+        return repository.logoutEvent.getErrorStream().subscribe({
+            handleError(it,this.javaClass)
             mainNavigationHelper.removeAllFragments()
-            handleError(it)
-            mainNavigationHelper.getChatFragment()?.logout()
-        })*/
+            //mainNavigationHelper.getChatFragment()?.logout()
+        })
     }
 
     fun logout() {
