@@ -10,15 +10,27 @@ import android.view.ViewGroup
 import co.netguru.blueprint.BR
 import co.netguru.blueprint.R
 import co.netguru.blueprint.databinding.PetsScreenFragmentBinding
+import co.netguru.blueprint.main.dependency.MainViewModelSubComponent
 import co.netguru.blueprint.main.viewmodel.MainViewModel
+import co.netguru.blueprint.main.viewmodel.PetViewModel
+import co.netguru.blueprint.services.pet.domain.Pet
+import co.netguru.blueprint.services.pet.domain.Status
+import co.netguru.blueprintlibrary.common.adapters.BaseItemsAdapter
+import co.netguru.blueprintlibrary.common.adapters.LayoutItemType
 import co.netguru.blueprintlibrary.common.view.BaseFragment
 import com.hannesdorfmann.fragmentargs.annotation.Arg
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.Disposable
+import javax.inject.Inject
+import javax.inject.Provider
 
 @FragmentWithArgs
 class PetsScreenFragment : BaseFragment<MainViewModel, PetsScreenFragmentBinding>(R.layout.pets_screen_fragment) {
+
+    @Inject
+    lateinit var mainViewModelComponent: Provider<MainViewModelSubComponent.Builder>
+
     @Arg
     var title: String? = null
 
@@ -34,12 +46,14 @@ class PetsScreenFragment : BaseFragment<MainViewModel, PetsScreenFragmentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         baseViewModel = (activity as MainActivity).baseViewModel
-        baseViewModel.getAllPets()
+        baseViewModel.getPets(Status.PENDING)
+
+        compositeDisposable.add(handlePetsEventError())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        observeAllPets()
+        observePets()
         initItems()
         return baseBinding.root
     }
@@ -47,21 +61,26 @@ class PetsScreenFragment : BaseFragment<MainViewModel, PetsScreenFragmentBinding
     private fun initItems() {
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        //baseBinding.items.layoutManager = layoutManager
-        //baseBinding.items.adapter = BaseItemsAdapter(baseViewModel.items)
+        baseBinding.items.layoutManager = layoutManager
+        val layoutItemTypes = listOf(LayoutItemType(R.layout.pet_item_layout))
+        baseBinding.items.adapter = BaseItemsAdapter(baseViewModel.items, { layoutItemAdapter -> (layoutItemAdapter) }, BR.viewModel, layoutItemTypes)
     }
 
-    private fun observeAllPets() {
-        baseViewModel.allPets.observe(this, Observer {
-            baseViewModel.items.clear()
-            //baseBinding.items.adapter.notifyDataSetChanged()
+    private fun observePets() {
+        baseViewModel.pets.observe(this, Observer {
+            for (pet: Pet in it!!) {
+                val petViewModel = PetViewModel(pet)
+                baseViewModel.items.add(petViewModel)
+                mainViewModelComponent.get().build().inject(petViewModel)
+            }
+            baseBinding.items.adapter.notifyDataSetChanged()
         })
     }
 
 
-    private fun handleAllPetsEventSucces(): Disposable {
-        return baseViewModel.allPetsEvent.getSuccessStream().subscribe({
-
+    private fun handlePetsEventError(): Disposable {
+        return baseViewModel.petsEvent.getErrorStream().subscribe({
+            handleError(it, null)
         })
     }
 

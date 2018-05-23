@@ -83,6 +83,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/main/dependency/MainViewModelSubComponent.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/main/dependency/PetsFragmentProvider.kt">
           <value>
             <set />
@@ -103,6 +108,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/main/view/LayoutItemType.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/main/view/MainActivity.kt">
           <value>
             <set />
@@ -119,6 +129,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/main/viewmodel/MainViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/netguru/blueprint/main/viewmodel/PetViewModel.kt">
           <value>
             <set />
           </value>
@@ -158,6 +173,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/pet_item_layout.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/pets_screen_fragment.xml">
           <value>
             <set />
@@ -188,7 +208,67 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/blueprintlibrary/src/main/java/co/netguru/blueprintlibrary/common/adapters/AbstractLayoutItemType.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/blueprintlibrary/src/main/java/co/netguru/blueprintlibrary/common/adapters/BaseItemsAdapter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/blueprintlibrary/src/main/java/co/netguru/blueprintlibrary/common/adapters/DataBindingBaseAdapter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/blueprintlibrary/src/main/java/co/netguru/blueprintlibrary/common/adapters/DataBindingViewHolder.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/blueprintlibrary/src/main/java/co/netguru/blueprintlibrary/common/adapters/LayoutItemType.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/blueprintlibrary/src/main/java/co/netguru/blueprintlibrary/common/view/ErrorHandlingFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/blueprintlibrary/src/main/java/co/netguru/blueprintlibrary/dependency/modules/AuthenticationModule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/blueprintlibrary/src/main/res/layout/pet_item_layout.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Right-Path-android/app/src/prod/java/com/onwelo/helloastra/common/adapters/DataBindingBaseAdapter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Right-Path-android/app/src/prod/java/com/onwelo/helloastra/main/menu/profile/dependency/ProfileActivityModule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Right-Path-android/app/src/prod/java/com/onwelo/helloastra/main/menu/profile/view/ProfileActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Right-Path-android/app/src/test/java/com/onwelo/helloastra/common/utils/BaseUnitTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Right-Path-android/app/src/testProd/java/com/onwelo/helloastra/login/viewmodel/LoginRegisterViewModelUnitTest.kt">
           <value>
             <set />
           </value>

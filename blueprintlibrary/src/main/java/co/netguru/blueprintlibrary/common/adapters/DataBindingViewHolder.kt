@@ -3,18 +3,16 @@ package co.netguru.blueprintlibrary.common.adapters
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 
-class DataBindingViewHolder constructor(private val binding: ViewDataBinding, private val variableId: Int) : RecyclerView.ViewHolder(binding.root) {
+class DataBindingViewHolder constructor(private val binding: ViewDataBinding, private val viewModelVariableId: Int, private val layoutItemTypes: List<LayoutItemType>) : RecyclerView.ViewHolder(binding.root) {
 
 
     fun bind(obj: LayoutItemAdapter) {
-        LayoutItemType.values().find {
-            binding.setVariable(variableId, obj)
+        layoutItemTypes.find {
+            binding.setVariable(viewModelVariableId, obj)
         }
 
 
         //when (obj.type) {
-
-
 //            LayoutItemType.PORTFOLIO_ITEM -> binding.setVariable(BR.portfolioItemViewModel, obj)
 //            LayoutItemType.PORTFOLIO_GENERAL_INFO_SECTION -> binding.setVariable(BR.portfolioGeneralInfoViewModel, obj)
 //            LayoutItemType.PORTFOLIO_HEADER_SECTION -> binding.setVariable(BR.portfolioHeaderSectionViewModel, obj)

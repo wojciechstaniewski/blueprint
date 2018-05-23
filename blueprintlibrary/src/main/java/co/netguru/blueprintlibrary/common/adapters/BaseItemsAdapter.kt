@@ -1,8 +1,9 @@
 package co.netguru.blueprintlibrary.common.adapters
 
 class BaseItemsAdapter(val data: List<LayoutItemAdapter>,
-                       val bindData: (layoutItemAdapter: LayoutItemAdapter) -> LayoutItemAdapter, variableId: Int) :
-        DataBindingBaseAdapter(variableId) {
+                       private val bindData: (layoutItemAdapter: LayoutItemAdapter) -> LayoutItemAdapter,
+                       viewModelVariableId: Int, layoutItemTypes: List<LayoutItemType>) :
+        DataBindingBaseAdapter(viewModelVariableId,layoutItemTypes) {
     override fun bind(layoutItemAdapter: LayoutItemAdapter): LayoutItemAdapter {
         return bindData(layoutItemAdapter)
     }

@@ -7,13 +7,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 
-abstract class DataBindingBaseAdapter(private val variableId:Int) : RecyclerView.Adapter<DataBindingViewHolder>() {
+abstract class DataBindingBaseAdapter(private val viewModelVariableId: Int, private val layoutItemTypes: List<LayoutItemType>) : RecyclerView.Adapter<DataBindingViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): DataBindingViewHolder {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context),
                 viewType, parent, false)
-        return DataBindingViewHolder(binding,variableId)
+        return DataBindingViewHolder(binding, viewModelVariableId, layoutItemTypes)
     }
 
     override fun onBindViewHolder(holder: DataBindingViewHolder,

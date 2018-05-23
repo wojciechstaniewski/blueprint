@@ -9,8 +9,8 @@ import android.text.TextUtils
 import android.util.Log
 import co.netguru.blueprint.R
 import co.netguru.blueprint.login.view.LoginActivity
-import co.netguru.blueprint.services.authentication.ApiAuth
-import co.netguru.blueprint.services.authentication.AuthenticationManager
+import co.netguru.blueprint.services.authentication.domain.ApiAuth
+import co.netguru.blueprint.services.authentication.business.AuthenticationManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

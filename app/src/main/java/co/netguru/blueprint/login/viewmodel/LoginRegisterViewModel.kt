@@ -5,11 +5,9 @@ import android.databinding.ObservableField
 import android.util.Log
 import co.netguru.blueprint.AppNavigation
 import co.netguru.blueprint.BuildConfig
-import co.netguru.blueprint.authenticator.AccountAuthenticator
 import co.netguru.blueprint.authenticator.AuthenticationResult
 import co.netguru.blueprint.login.navigation.LoginNavigationHelper
-import co.netguru.blueprint.services.authentication.AuthenticationManager
-import co.netguru.blueprint.services.user.endpoint.UserService
+import co.netguru.blueprint.services.authentication.business.AuthenticationManager
 import co.netguru.blueprintlibrary.common.events.ActionEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

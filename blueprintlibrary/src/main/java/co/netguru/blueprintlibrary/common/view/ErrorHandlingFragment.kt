@@ -16,8 +16,8 @@ open class ErrorHandlingFragment : BaseFormFragment() {
 
     }
 
-    fun handleError(throwable: Throwable, errorIds: List<Int>) {
-        if (throwable is HttpException && throwable.code() == HttpStatus.UNAUTHORIZED.value()) {
+    fun handleError(throwable: Throwable, errorIds: List<Int>?) {
+        if (throwable is HttpException && throwable.code() == HttpStatus.UNAUTHORIZED.value() && errorIds != null) {
             handleUnauthorizedError(errorIds)
         } else {
             errorUtils.handleError(throwable, view!!, activity as ErrorHandlingActivity,
