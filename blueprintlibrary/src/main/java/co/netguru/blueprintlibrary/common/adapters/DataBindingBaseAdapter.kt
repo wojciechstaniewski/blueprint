@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 
-abstract class DataBindingBaseAdapter(private val viewModelVariableId: Int, private val layoutItemTypes: List<LayoutItemType>) : RecyclerView.Adapter<DataBindingViewHolder>() {
+abstract class DataBindingBaseAdapter(private val viewModelVariableId: Int,
+                                      private val layoutItemTypes: List<LayoutItemType>)
+    : RecyclerView.Adapter<DataBindingViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): DataBindingViewHolder {
