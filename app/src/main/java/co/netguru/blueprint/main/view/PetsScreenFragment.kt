@@ -62,8 +62,7 @@ class PetsScreenFragment : BaseFragment<MainViewModel, PetsScreenFragmentBinding
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         baseBinding.items.layoutManager = layoutManager
-        val layoutItemTypes = listOf(LayoutItemType(R.layout.pet_item_layout))
-        baseBinding.items.adapter = BaseItemsAdapter(baseViewModel.items, { layoutItemAdapter -> (layoutItemAdapter) }, BR.viewModel, layoutItemTypes)
+        baseBinding.items.adapter = BaseItemsAdapter(baseViewModel.items, { layoutItemAdapter -> (layoutItemAdapter) }, BR.viewModel)
     }
 
     private fun observePets() {

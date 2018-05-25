@@ -8,14 +8,33 @@ import android.view.ViewGroup
 
 
 abstract class DataBindingBaseAdapter(private val viewModelVariableId: Int,
-                                      private val layoutItemTypes: List<LayoutItemType>)
+                                      private val items: List<LayoutItemAdapter>)
     : RecyclerView.Adapter<DataBindingViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): DataBindingViewHolder {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context),
                 viewType, parent, false)
-        return DataBindingViewHolder(binding, viewModelVariableId, layoutItemTypes)
+
+        val layoutItemsTypes = createLayoutTypesFromData()
+
+        return DataBindingViewHolder(binding, viewModelVariableId, layoutItemsTypes)
+    }
+
+    private fun createLayoutTypesFromData(): ArrayList<LayoutItemType> {
+        val layoutItemsTypes = arrayListOf<LayoutItemType>()
+
+        items.forEach {
+            val resId = it.type.layoutRes
+            if (layoutItemsTypes.size > 0) {
+                if (layoutItemsTypes.find { it.layoutRes == resId } == null) {
+                    layoutItemsTypes.add(it.type)
+                }
+            } else {
+                layoutItemsTypes.add(it.type)
+            }
+        }
+        return layoutItemsTypes
     }
 
     override fun onBindViewHolder(holder: DataBindingViewHolder,

@@ -27,7 +27,7 @@ open class ErrorHandlingFragment : BaseFormFragment() {
 
     private fun handleUnauthorizedError(errorIds: List<Int>) {
         for (fieldId in errorIds) {
-            handleError(fields.find { it.id == errorIds[fieldId] })
+            handleError(fields.find { it.id == fieldId })
         }
     }
 
