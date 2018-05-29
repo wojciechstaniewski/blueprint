@@ -11,18 +11,14 @@ import co.netguru.blueprint.R
 import co.netguru.blueprint.login.view.LoginActivity
 import co.netguru.blueprint.services.authentication.domain.ApiAuth
 import co.netguru.blueprint.services.authentication.business.AuthenticationManager
+import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class AccountAuthenticator(var context: Context) : AbstractAccountAuthenticator(context) {
+class AccountAuthenticator(var context: Context, val accountManager: AccountManager, val authenticationManager: AuthenticationManager) : AbstractAccountAuthenticator(context) {
 
-    @Inject
-    lateinit var authenticationManager: AuthenticationManager
-
-    @Inject
-    lateinit var accountManager: AccountManager
 
     private val TAG: String = AccountAuthenticator::class.java.simpleName
 

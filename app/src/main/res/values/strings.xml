@@ -42,5 +42,6 @@
     <string name="log_in">Log in</string>
     <string name="already_have_account">Already have account ?</string>
     <string name="auth">auth</string>
+    <string name="logout">Logout</string>
 
 </resources>

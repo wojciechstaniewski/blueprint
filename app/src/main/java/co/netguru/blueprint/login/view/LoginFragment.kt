@@ -78,18 +78,18 @@ class LoginFragment : BaseFragment<LoginRegisterViewModel, LoginFragmentBinding>
     }
 
     private fun handleSuccessLoginEvent() {
-        compositeDisposable.add(baseViewModel.loginEvent.getSuccessStream().subscribe({
+        compositeDisposable.add(baseViewModel.loginEvent.getSuccessStream().subscribe {
             baseBinding.login.stopAnimation()
             finishLogin(it)
-        }))
+        })
     }
 
     private fun handleErrorLoginEvent() {
-        compositeDisposable.add(baseViewModel.loginEvent.getErrorStream().subscribe({
+        compositeDisposable.add(baseViewModel.loginEvent.getErrorStream().subscribe {
             baseBinding.login.stopAnimation()
             baseBinding.login.revertAnimation()
             handleError(it, listOf(baseBinding.inputEmail.id, baseBinding.inputPassword.id))
-        }))
+        })
     }
 
     private fun finishLogin(authenticationResult: AuthenticationResult) {

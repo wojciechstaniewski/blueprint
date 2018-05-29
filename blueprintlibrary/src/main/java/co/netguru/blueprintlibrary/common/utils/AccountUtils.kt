@@ -18,8 +18,8 @@ class AccountUtils @Inject constructor(private val accountManager: AccountManage
         return accounts.firstOrNull { it.name.equals(accountName, ignoreCase = true) }
     }
 
-    fun getAuthToken(authTokenType: String): String {
-        val account = getAccountByType(authTokenType)
+    fun getAuthToken(accountType: String): String {
+        val account = getAccountByType(accountType)
         return if (account.isEmpty() || account[0] == null) {
             ""
         } else {
@@ -49,11 +49,11 @@ class AccountUtils @Inject constructor(private val accountManager: AccountManage
     fun setUserData(account: Account?, key: String, value: String?) =
             accountManager.setUserData(account, key, value)
 
-    private fun getAccountByType(authTokenType: String) =
-            accountManager.getAccountsByType(authTokenType)
+    private fun getAccountByType(accountType: String) =
+            accountManager.getAccountsByType(accountType)
 
     fun logoutFromAccountManager(errorHandlingActivity: ErrorHandlingActivity) {
-        accountManager.invalidateAuthToken(accountType, getAuthToken(authTokenType))
+        accountManager.invalidateAuthToken(accountType, getAuthToken(accountType))
         accountManager.getAuthTokenByFeatures(accountType, authTokenType, null,
                 errorHandlingActivity, null, null,
                 GetAuthTokenCallback(activity = errorHandlingActivity,

@@ -22,7 +22,8 @@ import javax.inject.Singleton
         PetModule::class,
         StoreModule::class,
         UserModule::class,
-        ActivityBuilder::class))
+        ActivityBuilder::class,
+        ServiceBuilder::class))
 interface AppComponent {
 
     @Component.Builder

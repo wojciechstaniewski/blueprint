@@ -38,14 +38,14 @@ abstract class BaseFormFragment : Fragment(), ValidatorUtils.InputFieldValidatio
 
     private fun setSubmitButton(button: AppCompatButton, enabled: Boolean) {
         button.background = if (enabled) {
-            ContextCompat.getDrawable(context!!, R.drawable.shape_white)
-        } else {
             ContextCompat.getDrawable(context!!, R.drawable.shape_blue)
+        } else {
+            ContextCompat.getDrawable(context!!, R.drawable.shape_white)
         }
         button.setTextColor(if (enabled) {
-            ContextCompat.getColor(context!!, R.color.colorPrimary)
-        } else {
             ContextCompat.getColor(context!!, R.color.backgroundColor)
+        } else {
+            ContextCompat.getColor(context!!, R.color.colorPrimary)
         })
         button.isEnabled = enabled
         button.isClickable = enabled

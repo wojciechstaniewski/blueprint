@@ -10,4 +10,6 @@ enum class ConfirmationDialogParams(var titleId: Int,
                                     var positiveButtonResId: Int = R.string.button_yes,
                                     var negativeButtonResId: Int = R.string.button_no) : Serializable {
 
+    LOGOUT(R.string.logout_confirmation_title,R.string.logout_confirmation_message)
+
 }

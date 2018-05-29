@@ -34,7 +34,7 @@ class App : Application(), HasActivityInjector, HasServiceInjector {
         DaggerAppComponent
                 .builder()
                 .baseUrl(BuildConfig.SERVER)
-                .accountType(BuildConfig.APP_ACCOUNT_NAME)
+                .accountType(BuildConfig.APPLICATION_ID)
                 .authTokenType(BuildConfig.AUTH_TOKEN_TYPE)
                 .application(this)
                 .build()

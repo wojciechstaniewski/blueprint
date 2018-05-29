@@ -76,7 +76,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputEmail"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/backgroundColor">
+                app:passwordToggleTint="@color/logo_active">
 
                 <EditText
                     android:id="@+id/inputPasswordText"
@@ -86,6 +86,7 @@
                     android:drawablePadding="@dimen/small_margin"
                     android:hint="@string/password"
                     android:inputType="textPassword"
+                    app:passwordToggleTint="@color/logo_active"
                     android:text="@={viewModel.loginPassword}"
                     android:textColor="@color/black" />
 
@@ -130,8 +131,8 @@
                     android:text="@string/login"
                     android:textColor="@color/white"
                     android:transitionName="transition"
-                    app:animationBackground="@drawable/rounded_shape_white"
-                    app:animationTextColor="@color/colorPrimary"
+                    app:animationBackground="@drawable/rounded_shape_blue"
+                    app:animationTextColor="@color/white"
                     app:finalCornerAngle="@dimen/large_corner_angle"
                     app:initialCornerAngle="@dimen/small_corner_angle"
                     app:spinning_bar_color="@color/colorPrimary"

@@ -106,7 +106,7 @@
                 app:finalCornerAngle="@dimen/large_corner_angle"
                 app:initialCornerAngle="@dimen/small_corner_angle"
                 app:spinning_bar_color="@color/white"
-                app:spinning_bar_width="4dp" />
+                app:spinning_bar_width="@dimen/spinning_bar_width" />
         </RelativeLayout>
 
         <TextView

@@ -3,6 +3,8 @@ package co.netguru.blueprint.main.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import co.netguru.blueprint.AppNavigation
 import co.netguru.blueprint.BR
 import co.netguru.blueprint.R
@@ -10,6 +12,7 @@ import co.netguru.blueprint.databinding.ActivityMainBinding
 import co.netguru.blueprint.main.dependency.MainViewModelSubComponent
 import co.netguru.blueprint.main.navigation.MainNavigationHelper
 import co.netguru.blueprint.main.viewmodel.MainViewModel
+import co.netguru.blueprintlibrary.common.dialogs.ConfirmationDialogParams
 import co.netguru.blueprintlibrary.common.utils.HttpStatus
 import co.netguru.blueprintlibrary.common.view.BaseActivity
 import io.reactivex.disposables.Disposable
@@ -63,11 +66,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
     }
 
     private fun handleLogoutEvent() :Disposable {
-        return repository.logoutEvent.getErrorStream().subscribe({
+        return repository.logoutEvent.getErrorStream().subscribe {
             handleError(it,this.javaClass)
             mainNavigationHelper.removeAllFragments()
             //mainNavigationHelper.getChatFragment()?.logout()
-        })
+        }
     }
 
     fun logout() {
@@ -77,8 +80,23 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
     }
 
     private fun showLogoutConfirmationDialog() {
-        /*    dialogUtils.showDialog(ConfirmationDialogParams.LOGOUT, supportFragmentManager)
-                    .buttonClicked.getSuccessStream().subscribe({ logout() })*/
+            compositeDisposable.add(dialogUtils.showDialog(ConfirmationDialogParams.LOGOUT, supportFragmentManager)
+                    .buttonClicked.getSuccessStream().subscribe { logout() })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when(item?.itemId){
+            R.id.action_logout -> {
+                showLogoutConfirmationDialog()
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }
