@@ -60,9 +60,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
     }
 
     private fun handleAccountCreatedEventSuccess():Disposable{
-        return accountCreatedEvent.getSuccessStream().subscribe({
+        return accountCreatedEvent.getSuccessStream().subscribe {
             mainNavigationHelper.navigateNextScreenForActiveUser()
-        })
+        }
     }
 
     private fun handleLogoutEvent() :Disposable {

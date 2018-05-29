@@ -27,9 +27,9 @@ class AccountUtils @Inject constructor(private val accountManager: AccountManage
         }
     }
 
-    fun removeAccount(authTokenType: String) {
+    fun removeAccount(accountType: String) {
         try {
-            val account = findAccount(authTokenType)
+            val account = findAccount(accountType)
             if (account != null && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
                 accountManager.removeAccountExplicitly(account)
             }

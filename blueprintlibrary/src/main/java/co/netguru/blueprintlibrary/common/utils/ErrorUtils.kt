@@ -15,8 +15,7 @@ import javax.security.auth.login.LoginException
 
 class ErrorUtils @Inject constructor(private val accountUtils: AccountUtils,
                                      private val dialogUtils: DialogUtils,
-                                     private val accountType: String,
-                                     private val authTokenType: String) {
+                                     private val accountType: String) {
 
     private var snackBar: Snackbar? = null
 
@@ -47,7 +46,7 @@ class ErrorUtils @Inject constructor(private val accountUtils: AccountUtils,
                     exception.code() == HttpStatus.UNAUTHORIZED.value()
             -> {
                 accountUtils.logoutFromAccountManager(activity)
-                accountUtils.removeAccount(authTokenType)
+                accountUtils.removeAccount(accountType)
             }
             else -> showGeneralDialogFragment(exception, activity, fragmentManager)
         }

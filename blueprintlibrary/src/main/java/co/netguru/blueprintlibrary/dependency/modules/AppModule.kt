@@ -51,8 +51,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideErrorUtils(accountUtils: AccountUtils, dialogUtils: DialogUtils, @AccountType accountType: String,
-                          @AuthTokenType authTokenType: String) = ErrorUtils(accountUtils, dialogUtils, accountType, authTokenType)
+    fun provideErrorUtils(accountUtils: AccountUtils, dialogUtils: DialogUtils,
+                          @AccountType accountType: String)
+            = ErrorUtils(accountUtils, dialogUtils, accountType)
 
     @Provides
     @Singleton
