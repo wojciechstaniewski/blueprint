@@ -1,5 +1,6 @@
 package co.netguru.blueprintlibrary.common.view
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
@@ -9,6 +10,7 @@ import android.text.InputType
 import co.netguru.blueprintlibrary.R
 import co.netguru.blueprintlibrary.common.Repository
 import co.netguru.blueprintlibrary.common.utils.ValidatorUtils
+import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -24,6 +26,11 @@ abstract class BaseFormFragment : Fragment(), ValidatorUtils.InputFieldValidatio
     var fields: MutableList<TextInputLayout> = arrayListOf()
 
     var submitButton: AppCompatButton? = null
+
+    override fun onAttach(context: Context?) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +53,7 @@ abstract class BaseFormFragment : Fragment(), ValidatorUtils.InputFieldValidatio
     private fun handleNetworkConnectivityEvent() {
         compositeDisposable.add(repository.networkConnectivityEvent.getSuccessStream().subscribe {
             if (submitButton != null) {
-                setSubmitButton(submitButton, true)
+                setItemsToValidation()
             }
         })
 
