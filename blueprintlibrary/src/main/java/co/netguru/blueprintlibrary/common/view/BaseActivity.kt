@@ -56,24 +56,24 @@ abstract class BaseActivity<T : ViewModel, S : ViewDataBinding> constructor(priv
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        val networkConnectivityEvent = ActionEvent<Boolean>()
-        registerNetworkBroadcastReceiver(networkConnectivityEvent)
-        handleSnackBarOnNetworkConnectivityEvent(networkConnectivityEvent)
+
+        registerNetworkBroadcastReceiver(repository.networkConnectivityEvent)
+        handleSnackBarOnNetworkConnectivityEvent(repository.networkConnectivityEvent)
     }
 
     private fun handleSnackBarOnNetworkConnectivityEvent(networkEvent: ActionEvent<Boolean>) {
         var snackBar: Snackbar? = null
         compositeDisposable.add(
-                networkEvent.getSuccessStream().subscribe({
+                networkEvent.getSuccessStream().subscribe {
                     if (snackBar != null && snackBar!!.isShown) {
                         snackBar!!.dismiss()
                     }
-                }))
+                })
         compositeDisposable.add(
-                networkEvent.getErrorStream().subscribe({
+                networkEvent.getErrorStream().subscribe {
                     snackBar = SnackBarUtils.createSnackBarWithoutRetry(findViewById(android.R.id.content), it.message)
                     snackBar!!.show()
-                }))
+                })
     }
 
     private fun registerNetworkBroadcastReceiver(networkEvent: ActionEvent<Boolean>) {

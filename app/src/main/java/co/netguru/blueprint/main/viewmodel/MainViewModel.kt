@@ -7,7 +7,6 @@ import android.util.Log
 import co.netguru.blueprint.services.pet.business.PetManager
 import co.netguru.blueprint.services.pet.domain.Pet
 import co.netguru.blueprint.services.pet.domain.Status
-import co.netguru.blueprintlibrary.Repository
 import co.netguru.blueprintlibrary.common.Constants
 import co.netguru.blueprintlibrary.common.adapters.LayoutItemAdapter
 import co.netguru.blueprintlibrary.common.events.ActionEvent
@@ -18,10 +17,6 @@ import javax.inject.Inject
 
 
 class MainViewModel : ViewModel() {
-
-
-    @Inject
-    lateinit var repository: Repository
 
     @Inject
     lateinit var petManager: PetManager

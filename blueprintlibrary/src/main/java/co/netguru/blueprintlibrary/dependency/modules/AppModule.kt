@@ -5,7 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import co.netguru.blueprintlibrary.Repository
+import co.netguru.blueprintlibrary.common.Repository
 import co.netguru.blueprintlibrary.common.utils.*
 import co.netguru.blueprintlibrary.dependency.AccountType
 import co.netguru.blueprintlibrary.dependency.AuthTokenType
@@ -52,8 +52,7 @@ class AppModule {
     @Provides
     @Singleton
     fun provideErrorUtils(accountUtils: AccountUtils, dialogUtils: DialogUtils,
-                          @AccountType accountType: String)
-            = ErrorUtils(accountUtils, dialogUtils, accountType)
+                          @AccountType accountType: String) = ErrorUtils(accountUtils, dialogUtils, accountType)
 
     @Provides
     @Singleton

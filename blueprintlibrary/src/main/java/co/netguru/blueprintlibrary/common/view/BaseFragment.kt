@@ -16,8 +16,6 @@ abstract class BaseFragment<T : ViewModel, S : ViewDataBinding> constructor(priv
 
     lateinit var baseViewModel: T
 
-    var compositeDisposable = CompositeDisposable()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +27,6 @@ abstract class BaseFragment<T : ViewModel, S : ViewDataBinding> constructor(priv
         setVariables()
         baseBinding.executePendingBindings()
         return baseBinding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.dispose()
     }
 
     abstract fun setVariables()

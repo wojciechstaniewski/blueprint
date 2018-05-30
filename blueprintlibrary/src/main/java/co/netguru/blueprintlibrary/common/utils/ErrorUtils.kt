@@ -17,7 +17,7 @@ class ErrorUtils @Inject constructor(private val accountUtils: AccountUtils,
                                      private val dialogUtils: DialogUtils,
                                      private val accountType: String) {
 
-    private var snackBar: Snackbar? = null
+    var snackBar: Snackbar? = null
 
     fun handleError(throwable: Throwable, view: View, activity: ErrorHandlingActivity,
                     fragmentManager: FragmentManager) {
@@ -33,7 +33,7 @@ class ErrorUtils @Inject constructor(private val accountUtils: AccountUtils,
                 handleHttpException(throwable, activity, fragmentManager)
             }
             is SocketTimeoutException -> {
-                showGeneralDialogFragment(throwable, activity, fragmentManager)
+                showGeneralDialogFragment(throwable, fragmentManager)
             }
         }
     }
@@ -48,11 +48,11 @@ class ErrorUtils @Inject constructor(private val accountUtils: AccountUtils,
                 accountUtils.logoutFromAccountManager(activity)
                 accountUtils.removeAccount(accountType)
             }
-            else -> showGeneralDialogFragment(exception, activity, fragmentManager)
+            else -> showGeneralDialogFragment(exception, fragmentManager)
         }
     }
 
-    private fun showGeneralDialogFragment(throwable: Throwable, activity: ErrorHandlingActivity, fragmentManager: FragmentManager) {
+    private fun showGeneralDialogFragment(throwable: Throwable, fragmentManager: FragmentManager) {
         val errorDialogMessages = ErrorDialogParams.ERROR
         errorDialogMessages.message = throwable.message
         dialogUtils.showDialog(errorDialogMessages, fragmentManager)

@@ -54,21 +54,21 @@ class ForgotPasswordFragment : BaseFragment<LoginRegisterViewModel,
     }
 
     private fun handleErrorPasswordResetEvent() {
-        compositeDisposable.add(baseViewModel.passwordResetEvent.getErrorStream().subscribe({
+        compositeDisposable.add(baseViewModel.passwordResetEvent.getErrorStream().subscribe {
             baseBinding.sentResetLink.stopAnimation()
             baseBinding.sentResetLink.revertAnimation()
             handleError(it, listOf(baseBinding.inputEmail.id))
-        }))
+        })
     }
 
     private fun handleSuccessPasswordResetEvent() {
-        compositeDisposable.add(baseViewModel.passwordResetEvent.getSuccessStream().subscribe({
+        compositeDisposable.add(baseViewModel.passwordResetEvent.getSuccessStream().subscribe {
             baseBinding.sentResetLink.stopAnimation()
             baseViewModel.successText = String.format(getString(R.string.reset_success,
                     baseViewModel.forgotUserName.get()!!.trim()))
             baseViewModel.forgotUserName.set("")
             baseViewModel.navigateToSuccessScreen()
-        }))
+        })
     }
 
     override fun afterTexChanged(textInputLayout: TextInputLayout) {

@@ -3,7 +3,7 @@ package co.netguru.blueprintlibrary.common.view
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import co.netguru.blueprintlibrary.Repository
+import co.netguru.blueprintlibrary.common.Repository
 import co.netguru.blueprintlibrary.common.events.ActionEvent
 import co.netguru.blueprintlibrary.common.utils.DialogUtils
 import co.netguru.blueprintlibrary.common.utils.ErrorUtils
