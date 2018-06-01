@@ -54,10 +54,11 @@ class AccountUtils @Inject constructor(private val accountManager: AccountManage
 
     fun logoutFromAccountManager(errorHandlingActivity: ErrorHandlingActivity) {
         accountManager.invalidateAuthToken(accountType, getAuthToken(accountType))
+        val callback = GetAuthTokenCallback(activity = errorHandlingActivity,
+                accountType = accountType, authTokenType = authTokenType, accountUtils = this, accountManager = accountManager)
         accountManager.getAuthTokenByFeatures(accountType, authTokenType, null,
                 errorHandlingActivity, null, null,
-                GetAuthTokenCallback(activity = errorHandlingActivity,
-                        accountType = accountType, authTokenType = authTokenType, accountUtils = this, accountManager = accountManager), null)
+                callback, null)
     }
 
 }

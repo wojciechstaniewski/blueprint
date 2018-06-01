@@ -1,9 +1,7 @@
 package co.netguru.blueprint.dependency
 
-import co.netguru.blueprint.login.dependency.LoginActivityModule
-import co.netguru.blueprint.login.dependency.LoginFragmentProvider
-import co.netguru.blueprint.login.dependency.SignInAndRegisterFragmentProvider
-import co.netguru.blueprint.login.dependency.SplashScreenFragmentProvider
+import co.netguru.blueprint.login.dependency.*
+import co.netguru.blueprint.login.view.ForgotPasswordFragment
 import co.netguru.blueprint.login.view.LoginActivity
 import co.netguru.blueprint.main.dependency.MainActivityModule
 import co.netguru.blueprint.main.dependency.PetsScreenFragmentProvider
@@ -23,7 +21,9 @@ abstract class ActivityBuilder {
     internal abstract fun bindMainActivity(): MainActivity
 
     @ContributesAndroidInjector(modules = arrayOf(LoginActivityModule::class,
-            LoginFragmentProvider::class, SignInAndRegisterFragmentProvider::class))
+            LoginFragmentProvider::class,
+            SignInAndRegisterFragmentProvider::class,
+            ForgotPasswordFragmentProvider::class))
     internal abstract fun bindLoginActivity(): LoginActivity
 
 }
