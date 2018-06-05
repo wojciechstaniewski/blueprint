@@ -48,8 +48,4 @@ class GetAuthTokenCallback(var activity: ErrorHandlingActivity?, val accountType
         activity!!.accountCreatedEvent.onError(e)
         activity!!.finish()
     }
-
-    fun destroy(){
-        activity = null
-    }
 }

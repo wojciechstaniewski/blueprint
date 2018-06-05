@@ -78,9 +78,9 @@ class PetsScreenFragment : BaseFragment<MainViewModel, PetsScreenFragmentBinding
 
 
     private fun handlePetsEventError(): Disposable {
-        return baseViewModel.petsEvent.getErrorStream().subscribe({
+        return baseViewModel.petsEvent.getErrorStream().subscribe {
             handleError(it, null)
-        })
+        }
     }
 
 }

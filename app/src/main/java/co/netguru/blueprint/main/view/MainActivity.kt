@@ -56,7 +56,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
             mainNavigationHelper.navigate(AppNavigation.SPLASH_SCREEN)
         }
         compositeDisposable.add(handleAccountCreatedEventSuccess())
-        compositeDisposable.add(handleLogoutEvent())
     }
 
     private fun handleAccountCreatedEventSuccess():Disposable{
@@ -65,18 +64,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
         }
     }
 
-    private fun handleLogoutEvent() :Disposable {
-        return repository.logoutEvent.getErrorStream().subscribe {
-            handleError(it,this.javaClass)
-            mainNavigationHelper.removeAllFragments()
-            //mainNavigationHelper.getChatFragment()?.logout()
-        }
-    }
-
     fun logout() {
-        val responseBody: ResponseBody = ResponseBody.create(MediaType.parse("text/plain"), "logout")
-        val response: Response<String> = Response.error(HttpStatus.UNAUTHORIZED.value(), responseBody)
-        repository.logoutEvent.onError(HttpException(response))
+        baseViewModel.logout()
     }
 
     private fun showLogoutConfirmationDialog() {

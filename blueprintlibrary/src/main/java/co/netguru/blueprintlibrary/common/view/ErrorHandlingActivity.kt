@@ -24,8 +24,7 @@ abstract class ErrorHandlingActivity : AppCompatActivity() {
     @Inject
     lateinit var dialogUtils: DialogUtils
 
-    @Inject
-    lateinit var repository: Repository
+    val logoutEvent = ActionEvent<Unit>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -35,10 +34,10 @@ abstract class ErrorHandlingActivity : AppCompatActivity() {
     fun handleError(throwable: Throwable, activityClass: Class<ErrorHandlingActivity>?) {
         if (this::class.java == activityClass) {
             errorUtils.handleError(throwable, window.decorView.rootView, this, supportFragmentManager)
-            repository.clean()
+            logoutEvent.onSuccess(Unit)
 
         } else {
-            repository.logoutEvent.onError(throwable)
+            logoutEvent.onError(throwable)
             //here finish all activities above MainActivity
             val logoutIntent = Intent(this, activityClass)
             logoutIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

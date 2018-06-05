@@ -7,6 +7,7 @@ import android.util.Log
 import co.netguru.blueprint.services.pet.business.PetManager
 import co.netguru.blueprint.services.pet.domain.Pet
 import co.netguru.blueprint.services.pet.domain.Status
+import co.netguru.blueprintlibrary.common.BaseViewModel
 import co.netguru.blueprintlibrary.common.Constants
 import co.netguru.blueprintlibrary.common.adapters.LayoutItemAdapter
 import co.netguru.blueprintlibrary.common.events.ActionEvent
@@ -16,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class MainViewModel : ViewModel() {
+class MainViewModel : BaseViewModel() {
 
     @Inject
     lateinit var petManager: PetManager

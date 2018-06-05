@@ -1,7 +1,6 @@
 package co.netguru.blueprintlibrary.common.view
 
 import android.app.NotificationManager
-import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.IntentFilter
@@ -12,6 +11,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
+import co.netguru.blueprintlibrary.common.BaseViewModel
 import co.netguru.blueprintlibrary.common.events.ActionEvent
 import co.netguru.blueprintlibrary.common.permissions.PermissionsActivity
 import co.netguru.blueprintlibrary.common.utils.ConnectivityBroadCastReceiver
@@ -24,7 +24,7 @@ import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 
-abstract class BaseActivity<T : ViewModel, S : ViewDataBinding> constructor(private val layoutResId: Int, private val modelClass: Class<T>? = null) :
+abstract class BaseActivity<T : BaseViewModel, S : ViewDataBinding> constructor(private val layoutResId: Int, private val modelClass: Class<T>? = null) :
         PermissionsActivity(), HasSupportFragmentInjector {
 
     @Inject
@@ -57,8 +57,16 @@ abstract class BaseActivity<T : ViewModel, S : ViewDataBinding> constructor(priv
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
 
-        registerNetworkBroadcastReceiver(repository.networkConnectivityEvent)
-        handleSnackBarOnNetworkConnectivityEvent(repository.networkConnectivityEvent)
+        compositeDisposable.add(baseViewModel.repository.logoutEvent.getSuccessStream().subscribe {
+            baseViewModel.repository.clean()
+        })
+
+        compositeDisposable.add(baseViewModel.repository.logoutEvent.getErrorStream().subscribe {
+            handleError(it, this.javaClass)
+        })
+
+        registerNetworkBroadcastReceiver(baseViewModel.repository.networkConnectivityEvent)
+        handleSnackBarOnNetworkConnectivityEvent(baseViewModel.repository.networkConnectivityEvent)
     }
 
     private fun handleSnackBarOnNetworkConnectivityEvent(networkEvent: ActionEvent<Boolean>) {
