@@ -1,6 +1,5 @@
 package co.netguru.blueprint.login.viewmodel
 
-import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import android.util.Log
 import co.netguru.blueprint.AppNavigation
@@ -8,6 +7,7 @@ import co.netguru.blueprint.BuildConfig
 import co.netguru.blueprint.authenticator.AuthenticationResult
 import co.netguru.blueprint.login.navigation.LoginNavigationHelper
 import co.netguru.blueprint.services.authentication.business.AuthenticationManager
+import co.netguru.blueprintlibrary.common.BaseViewModel
 import co.netguru.blueprintlibrary.common.events.ActionEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import javax.security.auth.login.LoginException
 
-class LoginRegisterViewModel : ViewModel() {
+class LoginRegisterViewModel : BaseViewModel() {
 
     var loginUserName: ObservableField<String> = ObservableField()
     var loginPassword: ObservableField<String> = ObservableField()

@@ -6,14 +6,12 @@ import okhttp3.MediaType
 import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
-import javax.inject.Inject
 
 open class BaseViewModel : ViewModel() {
 
-    @Inject
-    lateinit var repository: Repository
+    var repository: Repository = Repository()
 
-    fun logout(){
+    fun logout() {
         val responseBody: ResponseBody = ResponseBody.create(MediaType.parse("text/plain"), "logout")
         val response: Response<String> = Response.error(HttpStatus.UNAUTHORIZED.value(), responseBody)
         repository.logoutEvent.onError(HttpException(response))

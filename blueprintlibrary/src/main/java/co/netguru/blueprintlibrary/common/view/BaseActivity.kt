@@ -17,6 +17,7 @@ import co.netguru.blueprintlibrary.common.permissions.PermissionsActivity
 import co.netguru.blueprintlibrary.common.utils.ConnectivityBroadCastReceiver
 import co.netguru.blueprintlibrary.common.utils.SnackBarUtils
 import co.netguru.blueprintlibrary.common.utils.ValidatorUtils
+import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -55,7 +56,6 @@ abstract class BaseActivity<T : BaseViewModel, S : ViewDataBinding> constructor(
         baseBinding.executePendingBindings()
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
 
         compositeDisposable.add(baseViewModel.repository.logoutEvent.getSuccessStream().subscribe {
             baseViewModel.repository.clean()
