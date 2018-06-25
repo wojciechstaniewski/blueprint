@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -125,17 +126,17 @@
                     android:id="@+id/login"
                     android:layout_width="@dimen/input_width"
                     android:layout_height="@dimen/button_height"
-                    android:background="@drawable/shape_blue"
+                    android:background="@drawable/shape_green"
                     android:enabled="false"
                     android:onClick="@{() -> viewModel.startLogin()}"
                     android:text="@string/login"
                     android:textColor="@color/white"
                     android:transitionName="transition"
-                    app:animationBackground="@drawable/rounded_shape_blue"
+                    app:animationBackground="@drawable/rounded_shape_green"
                     app:animationTextColor="@color/white"
                     app:finalCornerAngle="@dimen/large_corner_angle"
                     app:initialCornerAngle="@dimen/small_corner_angle"
-                    app:spinning_bar_color="@color/colorPrimary"
+                    app:spinning_bar_color="@color/white"
                     app:spinning_bar_width="@dimen/spinning_bar_width" />
             </RelativeLayout>
 

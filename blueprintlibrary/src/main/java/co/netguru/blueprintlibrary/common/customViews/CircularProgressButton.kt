@@ -71,7 +71,7 @@ class CircularProgressButton : AppCompatButton, AnimatedButton, CustomizableByCo
         params!!.paddingProgress = 0f
 
         if (attrs == null) {
-            loadGradientDrawable(ContextCompat.getDrawable(getContext(), R.drawable.shape_blue))
+            loadGradientDrawable(ContextCompat.getDrawable(getContext(), R.drawable.shape_green))
         } else {
             val attrsArray = intArrayOf(android.R.attr.background)// 0
 

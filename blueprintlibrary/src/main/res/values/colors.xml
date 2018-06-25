@@ -10,4 +10,7 @@
     <color name="white">#FFFFFF</color>
     <color name="confirmation_active">#65C978</color>
     <color name="ic_attach_fill_color">#9E9E9E</color>
+    <color name="weak_password">#FF0000</color>
+    <color name="medium_password">#FFDF12</color>
+    <color name="strong_password">#22DF22</color>
 </resources>

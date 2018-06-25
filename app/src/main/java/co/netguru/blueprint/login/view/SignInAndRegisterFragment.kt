@@ -1,12 +1,16 @@
 package co.netguru.blueprint.login.view
 
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.TextInputLayout
+import android.support.v4.content.ContextCompat
 import android.view.View
 import co.netguru.blueprint.BR
 import co.netguru.blueprint.R
 import co.netguru.blueprint.databinding.SignInRegisterFragmentBinding
 import co.netguru.blueprint.login.viewmodel.LoginRegisterViewModel
+import co.netguru.blueprintlibrary.common.customViews.CircularProgressButton
 import co.netguru.blueprintlibrary.common.utils.DisplayUtils
 import co.netguru.blueprintlibrary.common.view.BaseFragment
 import com.hannesdorfmann.fragmentargs.annotation.Arg
@@ -32,10 +36,10 @@ class SignInAndRegisterFragment : BaseFragment<LoginRegisterViewModel, SignInReg
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fields.clear()
-        /*       fields.add(baseBinding.inputEmail)
-               fields.add(baseBinding.inputPassword)
-               fields.add(baseBinding.reInputPassword)
-               submitButton = baseBinding.register*/
+        fields.add(baseBinding.inputEmail)
+        fields.add(baseBinding.inputPassword)
+        fields.add(baseBinding.reInputPassword)
+        submitButton = baseBinding.register
         setItemsToValidation()
 
         handleStartRegisterEvent()
@@ -46,64 +50,67 @@ class SignInAndRegisterFragment : BaseFragment<LoginRegisterViewModel, SignInReg
     }
 
     private fun handleStartRegisterEvent() {
-/*        baseViewModel.registerEvent.getStartProgressEvent().subscribe {
+        compositeDisposable.add(baseViewModel.registerEvent.getStartProgressEvent().subscribe {
             dismissNoConnectivityError()
             baseBinding.register.startAnimation()
-            Handler().postDelayed({
-                baseViewModel.register()
-            }, CircularProgressButton.ANIMATION_LENGTH)
-        }*/
+            Handler().postDelayed(baseViewModel::register, CircularProgressButton.ANIMATION_LENGTH)
+        })
     }
 
     private fun handleErrorRegisterEvent() {
-/*        baseViewModel.registerEvent.getErrorStream().subscribe({
+        compositeDisposable.add(baseViewModel.registerEvent.getErrorStream().subscribe {
             baseBinding.register.stopAnimation()
             baseBinding.register.revertAnimation()
-            handleError(it)
-        })*/
+            handleError(it,
+                    listOf(baseBinding.inputEmail.id,
+                            baseBinding.inputPassword.id,
+                            baseBinding.reInputPassword.id))
+        })
     }
 
     private fun handleSuccessRegisterEvent() {
-        /*       baseViewModel.registerEvent.getSuccessStream().subscribe({
-                   if (isAdded) {
-                       baseBinding.register.stopAnimation()
-                       baseViewModel.successText = String.format(getString(R.string.register_success, baseViewModel.registerUserName.get()!!.trim()))
-                       baseViewModel.registerUserName.set("")
-                       baseViewModel.registerPassword.set("")
-                       baseViewModel.registerRePassword.set("")
-                       baseViewModel.navigateToSuccessScreen()
-                   }
-               })*/
+        compositeDisposable.add(baseViewModel.registerEvent.getSuccessStream().subscribe {
+            if (isAdded) {
+                baseBinding.register.stopAnimation()
+                baseViewModel.successText = String.format(getString(R.string.register_success, baseViewModel.registerUserName.get()!!.trim()))
+                baseViewModel.registerUserName.set("")
+                baseViewModel.registerPassword.set("")
+                baseViewModel.registerRePassword.set("")
+                baseViewModel.navigateToSuccessScreen()
+            }
+        })
     }
 
     private fun handleSuccessPasswordStrengthEvent() {
-        /*     baseViewModel.passwordStrengthEvent.getSuccessStream().subscribe({
-                 baseBinding.registerPasswordStrength.progress = it
-                 val context = baseBinding.registerPasswordStrength.context
-                 baseBinding.registerPasswordStrength.progressDrawable.setColorFilter(
-                         when (it) {
-                             1 -> ContextCompat.getColor(context, R.color.weak_password)
-                             2 -> ContextCompat.getColor(context, R.color.medium_password)
-                             else -> ContextCompat.getColor(context, R.color.strong_password)
-                         }, PorterDuff.Mode.SRC_IN)
-             })*/
+        compositeDisposable.add(baseViewModel.passwordStrengthEvent.getSuccessStream().subscribe {
+            baseBinding.registerPasswordStrength.progress = it
+            val context = baseBinding.registerPasswordStrength.context
+            baseBinding.registerPasswordStrength.progressDrawable.setColorFilter(
+                    when (it) {
+                        1 -> ContextCompat.getColor(context, R.color.weak_password)
+                        2 -> ContextCompat.getColor(context, R.color.medium_password)
+                        else -> ContextCompat.getColor(context, R.color.strong_password)
+                    }, PorterDuff.Mode.SRC_IN)
+        })
     }
 
     private fun handleErrorPasswordStrengthEvent() {
-        // TODO Wojtek: OnErrorNotImplementedException (crash aplikacji)
-//        baseViewModel.passwordStrengthEvent.getErrorStream().subscribe({
-//            handleError(it)
-//        })
+        compositeDisposable.add(baseViewModel.passwordStrengthEvent.getErrorStream().subscribe {
+            handleError(it,
+                    listOf(baseBinding.inputEmail.id,
+                            baseBinding.inputPassword.id,
+                            baseBinding.reInputPassword.id))
+        })
     }
 
     override fun afterTexChanged(textInputLayout: TextInputLayout) {
-/*        if (textInputLayout == baseBinding.inputPassword) {
+        if (textInputLayout == baseBinding.inputPassword) {
             if (textInputLayout.editText!!.text.isNotEmpty()) {
                 baseBinding.registerPasswordStrength.visibility = View.VISIBLE
                 baseViewModel.passwordStrength(baseBinding.inputPasswordText.text.toString().trim())
             } else {
                 baseBinding.registerPasswordStrength.visibility = View.GONE
             }
-        }*/
+        }
     }
 }
